@@ -58,15 +58,11 @@ app.post(
     Url.findOne({})
       .sort({ shortUrl: 'desc' })
       .exec((err, result) => {
-        console.log('executed');
         if (err) console.log(err);
         else if (!err && result != undefined) {
-          console.log('!err && result != undefined');
           inputShort = result.shortUrl + 1;
-          console.log('inputShort: ', inputShort);
         }
         if (!err) {
-          console.log('!err');
           Url.findOneAndUpdate(
             { originalUrl: inputUrl },
             { originalUrl: inputUrl, shortUrl: inputShort },
@@ -74,7 +70,6 @@ app.post(
             (err, savedUrl) => {
               if (err) console.log(err);
               else {
-                console.log('last else');
                 responseObject['short_url'] = savedUrl.shortUrl;
                 res.json(responseObject);
               }
